@@ -1,0 +1,37 @@
+.myvideo {
+    position: relative;
+        /* width: 200px;
+        height: px; */
+        border: 0.1rem solid #56a5eb;
+        background-color: white;
+        justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+      }
+
+.btn-grid {
+    /* display: grid; */
+    /* grid-template-columns: repeat(2, auto); */
+    gap: 10px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .btn:hover {
+    border-color: black;
+    transform: scale(1.05); 
+    } */
+
+    .correct {
+        background-color: red;
+        color:white;
+    }
+
+    .incorrect {
+        background-color: green;
+        color: white
+    }
+
+    

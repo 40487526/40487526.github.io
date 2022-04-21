@@ -1,4 +1,135 @@
-*,*::before, *::after {
+:root {
+    background-color: #0C0C0C;
+    font-size: 62.5%;
+  }
+  
+  * {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #FFE74C ;
+  }
+  
+
+  h4 {
+    margin-bottom: 1rem;
+  }
+  
+  h1 {
+    font-size: 5.4rem;
+    color: #FFE66D;
+    margin-bottom: 5rem;
+    text-align: center;
+  }
+  
+
+  h2 {
+    font-size: 4.2rem;
+    margin-bottom: 4rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  
+  /* UTILITIES */
+  
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .container > * {
+    width: 100%;
+  }
+  
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .flex-center {
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* BUTTONS */
+  .btn {
+    font-size: 1.8rem;
+    padding: 1rem 0;
+    width: 20rem;
+    text-align: center;
+    border: 0.1rem solid #F39237;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    color: #D63230;
+    background-color: white;
+    border-radius: 10px;
+  }
+  
+
+  .btn:hover {
+    cursor: pointer;
+    box-shadow: 0 0.4rem 1.4rem 0 rgba(86, 185, 235, 0.5);
+    transform: translateY(-0.1rem);
+    transition: transform 150ms;
+    transform: scale(1.05); 
+  }
+  
+  .btn[disabled]:hover {
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .correct {
+    background-color: red;
+}
+
+.incorrect {
+    background-color: green;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* *{
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -84,4 +215,4 @@ transform: scale(1.05);
 
 .hide {
     display: none;
-}
+} */
