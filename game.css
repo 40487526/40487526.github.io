@@ -23,15 +23,18 @@
     border-color: black;
     transform: scale(1.05); 
     } */
-
-    .correct {
-        background-color: red;
-        color:white;
+    .next_btn{
+        font-size: 1.8rem;
+        padding: 1rem 0;
+        width: 20rem;
+        text-align: center;
+        border: 0.1rem solid #F39237;
+        margin-bottom: 1rem;
+        text-decoration: none;
+        color: #D63230;
+        background-color: white;
+        border-radius: 10px;
     }
 
-    .incorrect {
-        background-color: green;
-        color: white
-    }
 
     

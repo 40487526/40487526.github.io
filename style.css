@@ -70,7 +70,11 @@
   .hidden {
     display: none;
   }
-  
+  .centre-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   /* BUTTONS */
   .btn {
     font-size: 1.8rem;
@@ -85,7 +89,11 @@
     border-radius: 10px;
   }
   
-
+  .footer_button {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  }
   .btn:hover {
     cursor: pointer;
     box-shadow: 0 0.4rem 1.4rem 0 rgba(86, 185, 235, 0.5);
@@ -94,17 +102,30 @@
     transform: scale(1.05); 
   }
   
+  .next_btn:hover {
+    cursor: pointer;
+    box-shadow: 0 0.4rem 1.4rem 0 rgba(86, 185, 235, 0.5);
+    transform: translateY(-0.1rem);
+    transition: transform 150ms;
+    transform: scale(1.05); 
+  }
+  /* .next_btn[disabled]:hover {
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }  */
+
   .btn[disabled]:hover {
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
   }
 
-  .correct {
+  .incorrect {
     background-color: red;
 }
 
-.incorrect {
+.correct {
     background-color: green;
 }
 

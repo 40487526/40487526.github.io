@@ -1,6 +1,13 @@
 const question = document.getElementById("question");
 const choices = Array.from(document.getElementsByClassName("btn"));
 var vidUrl = document.getElementById("myvideo");
+const nextButton = document.getElementById("next_btn");
+var a = document.getElementById('next_btn');
+
+var class_name1 = 'correct';
+var class_name2 = 'incorrect';
+elements1=document.getElementsByClassName(class_name1)
+elements2=document.getElementsByClassName(class_name2)
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -45,7 +52,7 @@ let questions = [
       answer: 1
 
      }
-   ]
+   ];
    
    //constants
    const CORRECT_BONUS = 10;
@@ -56,51 +63,86 @@ let questions = [
     questionCounter = 0;
     score = 0;
     availableQuestions = [...questions];
-    console.log(availableQuestions);
     getNewQuestion();
-
    };
 
    getNewQuestion = () => {
-    if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
-        //go to the end page
-        return window.location.assign('/index.html');
-    }
+    nextButton.classList.add("hidden")
+    for(element of elements1){
+        element.classList.remove(class_name1)
+      }
+      for(element of elements2){
+        element.classList.remove(class_name2)
+      }
+console.log(questionCounter);
+
+    console.log(questionCounter);
     questionCounter++;
+    
+    // if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+    //     nextButton.innerText = "Finish"
+    //    }
+   
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
-
+    console.log(questionCounter);
     question.innerText = currentQuestion.question; //question is the class id
     vidUrlSrc = currentQuestion.videoLinkShort;
     vidUrl.src = vidUrlSrc;
 
     choices.forEach((choice) => {
         const number = choice.dataset['number'];
-        choice.innerText = currentQuestion['choice' + number];
+       choice.innerText = currentQuestion['choice' + number];
     });
-
+    
     availableQuestions.splice(questionIndex, 1);
     acceptingAnswers = true;
+    endJS();
 };
 
-choices.forEach((choice) => {
-    choice.addEventListener('click', (e) => {
-        if (!acceptingAnswers) return;
+function endJS() {
 
+
+choices.forEach((choice) => {
+    choice.addEventListener('click', e => {
+
+        if (!acceptingAnswers) return;
+        
         acceptingAnswers = false;
         const selectedChoice = e.target;
         const selectedAnswer = selectedChoice.dataset['number'];
 
-        const classToApply = selectedAnswer != currentQuestion.answer ? "correct" : "incorrect";
-
+        const classToApply = selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
+       
         selectedChoice.classList.add(classToApply);
 
-        setTimeout(() => {
-            selectedChoice.classList.remove(classToApply);
-            getNewQuestion();
-        }, 1000);
+        vidUrlSrc = currentQuestion.videoLinkFull;
+        vidUrl.src = vidUrlSrc;
         
+        console.log(questionCounter);
+    nextButton.classList.remove("hidden");
+
+    if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+        nextButton.innerText = "Finish"
+        goHome()
+        
+        } else {
+            nextButton.addEventListener('click', getNewQuestion);
+        }
+    
+ 
     });
 });
+function goHome() {
+    nextButton.addEventListener('click', e => {
+    window.location.assign("/index.html");
+    
+});
+}}
+
 
 startGame();
+// setTimeout(() => {
+    //     selectedChoice.classList.remove(classToApply);
+    //     getNewQuestion();
+    //   }, 1000);
