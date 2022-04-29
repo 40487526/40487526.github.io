@@ -1,6 +1,6 @@
 const question = document.getElementById("question");
 const choices = Array.from(document.getElementsByClassName("btn"));
-var vidUrl = document.getElementById("myvideo");
+var vidUrl = document.getElementById("myVideo");
 const nextButton = document.getElementById("next_btn");
 var a = document.getElementById('next_btn');
 
@@ -10,16 +10,17 @@ elements1 = document.getElementsByClassName(class_name1)
 elements2 = document.getElementsByClassName(class_name2)
 
 let currentQuestion = {};
-let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
+const max_questions = 4;
 
+//array of questions and answers and their respective video
 let questions = [{
         question: 'Is this cake or a shoe?',
         choice1: "Cake",
         choice2: "Shoe",
-        videoLinkShort: "shoecake_start.mp4",
-        videoLinkFull: "shoecake_full.mp4",
+        videoLinkShort: "/videos/shoecake_start.mp4",
+        videoLinkFull: "/videos/shoecake_full.mp4",
         answer: 1
 
     },
@@ -27,8 +28,8 @@ let questions = [{
         question: 'Is this cake or some loo roll?',
         choice1: "Cake",
         choice2: "Loo Roll",
-        videoLinkShort: "loorollcake_start.mp4",
-        videoLinkFull: "loorollcake_full.mp4",
+        videoLinkShort: "/videos/loorollcake_start.mp4",
+        videoLinkFull: "/videos/loorollcake_full.mp4",
         answer: 1
 
     },
@@ -36,8 +37,8 @@ let questions = [{
         question: 'Is this cake or a bar of soap?',
         choice1: "Cake",
         choice2: "Soap",
-        videoLinkShort: "soapreal_start.mp4",
-        videoLinkFull: "soapreal_full.mp4",
+        videoLinkShort: "/videos/soapreal_start.mp4",
+        videoLinkFull: "/videos/soapreal_full.mp4",
         answer: 2
 
     },
@@ -45,24 +46,24 @@ let questions = [{
         question: 'Is this cake or a banana',
         choice1: "Cake",
         choice2: "Banana",
-        videoLinkShort: "bananareal_start.mp4",
-        videoLinkFull: "bananareal_full.mp4",
+        videoLinkShort: "/videos/bananareal_start.mp4",
+        videoLinkFull: "/videos/bananareal_full.mp4",
         answer: 1
 
     }
 ];
 
-const MAX_QUESTIONS = 4;
 
 startGame = () => {
 
     questionCounter = 0;
-    score = 0;
     availableQuestions = [...questions];
-    getNewQuestion();
+    newQuestion();
 };
 
-getNewQuestion = () => {
+newQuestion = () => {
+
+    //hides the next button and removes any of the incorrect or correct classes any element may have
     nextButton.classList.add("hidden")
     for (element of elements1) {
         element.classList.remove(class_name1)
@@ -70,19 +71,19 @@ getNewQuestion = () => {
     for (element of elements2) {
         element.classList.remove(class_name2)
     }
-    console.log(questionCounter);
 
-    console.log(questionCounter);
     questionCounter++;
-
-
+    //randomises the question that will be shown next
     const questionIndex = Math.floor(Math.random() * availableQuestions.length);
     currentQuestion = availableQuestions[questionIndex];
-    console.log(questionCounter);
-    question.innerText = currentQuestion.question; //question is the class id
-    vidUrlSrc = currentQuestion.videoLinkShort;
-    vidUrl.src = vidUrlSrc;
 
+    //takes the question from the index and puts it into the text of the question container
+    question.innerText = currentQuestion.question;
+    //adds the video into the video container from the source from the questions array
+    vid_UrlSrc = currentQuestion.videoLinkShort;
+    vidUrl.src = vid_UrlSrc;
+
+    //for each button there is, the correct answer will be shown in the correct location. 
     choices.forEach((choice) => {
         const number = choice.dataset['number'];
         choice.innerText = currentQuestion['choice' + number];
@@ -90,52 +91,58 @@ getNewQuestion = () => {
 
     availableQuestions.splice(questionIndex, 1);
 
-    endJS();
+    userChoice();
 };
 
-function endJS() {
-    let testFlag = false;
+function userChoice() {
+
+
+    let userClicked = false;
 
     choices.forEach((choice) => {
 
         choice.addEventListener('click', e => {
-            if (testFlag === true) {
+            //checks to see if the user has clicked on any choice yet and if so leave the forEach loop
+            if (userClicked === true) {
                 return; //https://masteringjs.io/tutorials/fundamentals/foreach-break
             }
 
-            const selectedChoice = e.target;
-            const selectedAnswer = selectedChoice.dataset['number'];
+            //puts in the all of the properties the button the user clicked had into selectedChoice 
+            //to be able to determine if they selected the correct or incorrect answer based on the 
+            const userSelectedChoice = e.target;
+            const selectedAnswer = userSelectedChoice.dataset['number'];
 
+            //this is an operator which works as a if else, if the answer the user selects matches the answer from the array
+            //then the correct class will be applied, otherwise incorrect will
             const classToApply = selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
 
-            selectedChoice.classList.add(classToApply);
-            testFlag = true;
-            endFunction();
-        });
+            userSelectedChoice.classList.add(classToApply);
+            userClicked = true;
 
-        function endFunction() {
-
-            vidUrlSrc = currentQuestion.videoLinkFull;
-            vidUrl.src = vidUrlSrc;
             nextButton.classList.remove("hidden");
 
-            if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+            if (availableQuestions.length === 0 || questionCounter >= max_questions) {
+                vid_UrlSrc = currentQuestion.videoLinkFull;
+                vidUrl.src = vid_UrlSrc;
                 nextButton.innerText = "Finish"
                 goHome()
 
             } else {
-                nextButton.addEventListener('click', getNewQuestion);
+                vid_UrlSrc = currentQuestion.videoLinkFull;
+                vidUrl.src = vid_UrlSrc;
+                nextButton.addEventListener('click', newQuestion);
             }
 
-        }
+        });
 
 
     });
-} //end of endJS
-function goHome() {
-    nextButton.addEventListener('click', e => {
-        window.location.assign("/index.html");
+}
 
+function goHome() {
+    //waits for user to click on the next button to take back to home page
+    nextButton.addEventListener('click', e => {
+        window.location.assign("/home.html");
     });
 }
 
