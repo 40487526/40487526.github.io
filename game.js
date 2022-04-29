@@ -142,7 +142,7 @@ function userChoice() {
 function goHome() {
     //waits for user to click on the next button to take back to home page
     nextButton.addEventListener('click', e => {
-        window.location.assign("/home.html");
+        window.location.assign("/index.html");
     });
 }
 
